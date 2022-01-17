@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">واریز حقوق</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <!-- text input -->
+        <div class="row">
+            <div class="col-md-4">
+                <select name="Month" id="Month" class="form-control">
+                    <option value="">اننخاب ماه</option>
+                    <option value="فروردین">فروردین</option>
+                    <option value="اردیبهشت">اردیبهشت</option>
+                    <option value="خرداد">خرداد</option>
+                    <option value="تیر">تیر</option>
+                    <option value="مرداد">مرداد</option>
+                    <option value="شهریور">شهریور</option>
+                    <option value="مهر">مهر</option>
+                    <option value="آبان">آبان</option>
+                    <option value="آذر">آذر</option>
+                    <option value="دی">دی</option>
+                    <option value="بهمن">بهمن</option>
+                    <option value="اسفند">اسفند</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-success form-control" href="#" onclick="send()">واریز حقوق <i class="fa fa-money"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+    function send() {
+        SendData('/DepositSalary/Create', { Month: $("#Month").val()});
+    }
+</script>

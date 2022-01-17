@@ -1,0 +1,125 @@
+﻿
+@model IEnumerable<EmployeeMG.Core.ApplicationContract.Company.ListCompany>
+
+@{
+    Layout = "_Layout";
+    ViewData["Tit"] = "مدیریت شرکت ها";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">لیست شرکت ها</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست شرکت ها</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" onclick="Create()" class="btn btn-secondary btn-block"> افزودن➕ </a>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده شرکت ها</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="myTable" class="table table-bordered table-responsive-lg table-hover table-striped dataTable" role="grid">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="text-center">لوگو</th>
+                                                <th class="text-center">شماره ثبت</th>
+                                                <th class="text-center">نام</th>
+                                                <th class="text-center">تلفن</th>
+                                                <th class="text-center">وب سایت</th>
+                                                <th class="text-center">آدرس</th>
+                                                <th class="text-center">عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center">
+                                                        <img src="/Images/@item.Logo" width="90" height="60"/>
+                                                    </td>
+                                                    <td class="text-center">@item.RegistrationCode</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.WebSite</td>
+                                                    <td>@item.Address</td>
+                                                    <td class="text-center">
+                                                        <a href="#" onclick="Edit('@item.RegistrationCode')" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                        <a href="#" onclick="Delete('@item.RegistrationCode')" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section js{
+
+    <script>
+
+        function Create() {
+
+
+            LoadComponenet("/Company/Create/",
+                null,
+                function(res) {
+                    $('body').append(res);
+                    $('#CreateCompo').modal();
+                });
+
+        }
+
+        function Edit(_ID) {
+
+
+            LoadComponenet("/Company/Edit/",
+                { Id: _ID },
+                function(res) {
+                    $('body').append(res);
+                    $('#CreateCompo').modal();
+                });
+
+        }
+
+        function Delete(_ID) {
+
+            RemoveData("/Company/Delete/", {ID:_ID});
+        }
+
+        function RefreshTable() {
+            $("#myTable").load("/Company/Index #myTable");
+            Close();
+        }
+
+    </script>
+
+}

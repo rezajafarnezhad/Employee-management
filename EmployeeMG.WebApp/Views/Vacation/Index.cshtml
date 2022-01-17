@@ -1,0 +1,135 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Vacation.ListVacation
+
+@{
+    Layout = "_Layout";
+    ViewData["tit"] = "مدیریت مرخصی ها";
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">لیست مرخصی ها</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست مرخصی ها</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" onclick="Create()" class="btn btn-secondary btn-block">افزودن➕</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده مرخصی ها</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form id="Vacationform" action="/Vacation/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_Vacation" model="@Model" />
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section JS
+{
+
+
+    <script src="~/Admin/dist/js/persian-date.min.js"></script>
+    <script src="~/Admin/dist/js/persian-datepicker.min.js"></script>
+
+    <script>
+
+        $("#FilretCodePersonnel").keypress(function (event) {
+            var ew = event.which;
+            if (ew == 32)
+                return true;
+            if (48 <= ew && ew <= 57)
+                return true;
+            if (65 <= ew && ew <= 90)
+                return true;
+            if (97 <= ew && ew <= 122)
+                return true;
+            return false;
+        });
+    </script>
+
+    <script>
+
+        $('.persianDateInput').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: "persian"
+        });
+    </script>
+
+
+    <script>
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#Vacationform").submit();
+        }
+
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        function RefreshTable() {
+            $("#myTable").load("/Vacation/Index #myTable");
+            Close();
+        }
+
+
+        function Create() {
+
+            LoadComponenet("/Vacation/Create/",
+                null,
+                function (res) {
+                    $('body').append(res);
+                    $('#Createvac').modal();
+                });
+        }
+
+        function Edit(_ID) {
+
+            LoadComponenet("/Vacation/Edit/",
+                { ID: _ID },
+                function (res) {
+                    $('body').append(res);
+                    $('#EditEmp').modal();
+                });
+        }
+
+
+        function Delete(_ID) {
+            RemoveData("/Vacation/Delete/", { ID: _ID });
+        }
+
+    </script>
+}

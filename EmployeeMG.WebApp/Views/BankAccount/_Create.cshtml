@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">افزودن حساب بانکی جدید</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form id="frmCreateCategory">
+            <!-- text input -->
+            <div class="form-group">
+                <label>کد پرسنلی</label>
+                <input type="number" id="Codep" name="Codep" class="form-control" placeholder="وارد کنید">
+            </div>
+            <div class="form-group">
+                <label>شماره شبا</label>
+                <input type="text" id="Codesh" name="Codesh" class="form-control" placeholder="وارد کنید">
+            </div>
+        </form>
+        <button type="button" onclick="send()" class="btn btn-success">ثبت حساب بانکی</button>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+    function send() {
+        SendData('/BankAccount/Create', { Codep: $("#Codep").val(), Codesh: $("#Codesh").val()});
+    }
+</script>

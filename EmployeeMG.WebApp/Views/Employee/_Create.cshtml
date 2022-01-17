@@ -1,0 +1,188 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Employee.CreateEmp
+
+
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade bd-example-modal-lg" id="CreateEmp" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="EmpFrmCreate" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">افزودن کارمند جدید</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">کد ملی</label>
+                                <input type="text" asp-for="CodeMelli" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">سمت</label>
+                                <input type="text" asp-for="place" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group text-right">
+                                <label class="control-label ">جنسیت</label>
+                                <select asp-for="Sex" class="form-control">
+                                    <option value="">جنسیت</option>
+                                    <option value="زن">زن</option>
+                                    <option value="مرد">مرد</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">مدرک</label>
+                                <select asp-for="DegreeEducation" class="form-control">
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="فوق دکترا">فوق دکترا</option>
+                                    <option value="دکترا">دکترا</option>
+                                    <option value="فوق لیسانس">فوق لیسانس</option>
+                                    <option value="لیسانس">لیسانس</option>
+                                    <option value="فوق دیپلم">فوق دیپلم</option>
+                                    <option value="دیپلم">دیپلم</option>
+                                    <option value="زیر دیپلم">زیر دیپلم</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">نام</label>
+                                <input type="text" asp-for="Firstname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">نام خانوادگی</label>
+                                <input type="text" asp-for="Lastname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">نام پدر</label>
+                                <input type="text" asp-for="FatherName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">وضعیت تاهل</label>
+                                <select asp-for="MaritalStatus" class="form-control">
+                                    <option value="">انتخاب کنید</option>
+                                    <option value="متاهل">متاهل</option>
+                                    <option value="مجرد">مجرد</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">موبایل</label>
+                                <input type="text" asp-for="Mobile" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">واحد</label>
+                                <select asp-for="UnitId" asp-items="@ViewBag.unit" class="form-control">
+                                    <option value="">واحد</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group text-right">
+                                <label class="control-label ">انتخاب عکس</label>
+                                <input type="file" asp-for="PicFile" name="PicFile" id="PicFile" accept="image/*">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group text-center">
+                                <img src="/Images/index.jpg" id="Pics" width="120" height="110" class="spinner-border-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">تاریخ تولد</label>
+                                <input  asp-for="DateOfBirth" class="form-control persianDateInput">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">تاریخ استخدام</label>
+                                <input  asp-for="DateOfEmployment" class="form-control persianDateInput">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-right">
+                                <label class="control-label ">آدرس</label>
+                                <textarea asp-for="address" rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SendForm('/Employee/Create','EmpFrmCreate')" class="btn btn-primary">افزودن</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<script src="~/Admin/dist/js/persian-date.min.js"></script>
+<script src="~/Admin/dist/js/persian-datepicker.min.js"></script>
+
+<script>
+
+    $('.persianDateInput').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+        initialValueType: "persian"
+    });
+
+
+    function Close() {
+        $(document).ready(function () {
+            $('#CreateEmp').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#Pics').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#PicFile").change(function () {
+        readURL(this);
+    });
+
+</script>

@@ -1,0 +1,105 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.AmountOfSalary.CreateAmountOfSalary
+
+
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade" id="CreateAm" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <form id="FrmCreate" method="post"  enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">افزودن میزان حقوق جدید</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">واحد</label>
+                                <select asp-for="UnitId" asp-items="@ViewBag.UnitName" class="form-control">
+                                    <option value="">انتخاب واحد</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">میزان حقوق</label>
+                                <input type="text" asp-for="Salary" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">حق مسکن</label>
+                                <input type="text" asp-for="RightHousing" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">حق اولاد</label>
+                                <input type="text" asp-for="RightChild" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">بیمه</label>
+                                <input type="text" asp-for="Insurance" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">هر ساعت اضافه کاری</label>
+                                <input type="text" asp-for="HourOfOverTime" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SendForm('/AmountOfSalary/Create','FrmCreate')" class="btn btn-primary">افزودن</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial"/>
+
+<script>
+    function Close() {
+        $(document).ready(function () {
+            $('#CreateAm').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+    $(document).ready(function () {    
+    
+        $('input').keypress(function (e) {    
+    
+            var charCode = (e.which) ? e.which : event.keyCode    
+    
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))    
+    
+                return false;                        
+    
+        });    
+    
+    });   
+
+
+</script>

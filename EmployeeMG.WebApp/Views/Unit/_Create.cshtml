@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="card card-dark">
+    <div class="card-header">
+        <h3 class="card-title">افزودن واحد جدید</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <form id="frmCreateCategory">
+            <!-- text input -->
+            <div class="form-group">
+                <label>نام واحد</label>
+                <input type="text" id="Name" name="Name" class="form-control" placeholder="وارد کنید">
+            </div>
+        </form>
+        <button type="button" onclick="send()" class="btn btn-success">ثبت واحد</button>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+    function send() {
+        SendData('/Unit/Create', { Name: $("#Name").val()});
+    }
+</script>

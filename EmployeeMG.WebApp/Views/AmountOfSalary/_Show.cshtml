@@ -1,0 +1,87 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.AmountOfSalary.EditAmountOfSalary
+
+
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade" id="EditAm" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <form id="FrmCreate" method="post"  enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">مشاهده جزئیات میزان حقوق (@Model.UnitName)</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group text-right">
+                                    <label class="control-label ">💼  واحد</label>
+                                    <input type="text" readonly="readonly" asp-for="UnitName" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">💳 (تومان) میزان حقوق</label>
+                                <input type="text" readonly="readonly"  asp-for="Salary" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">🏠 حق مسکن</label>
+                                <input type="text" readonly="readonly" asp-for="RightHousing" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">🙆‍♀️  حق اولا</label>
+                                <input type="text" readonly="readonly"  asp-for="RightChild" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">💡 بیمه</label>
+                                <input type="text" readonly="readonly"  asp-for="Insurance" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">⌚  هر ساعت اضافه کاری</label>
+                                <input type="text" readonly="readonly"  asp-for="HourOfOverTime" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial"/>
+
+<script>
+    function Close() {
+        $(document).ready(function () {
+            $('#EditAm').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>

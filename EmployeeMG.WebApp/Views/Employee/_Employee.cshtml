@@ -1,0 +1,92 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Employee.ListEmployee
+
+@{
+    Layout = null;
+}
+
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+    <div class="col-md-2">
+        <input type="text" asp-for="@Model.FilterCodePersonnel" name="filtercode" class="form-control" placeholder="جستجو کد پرسنلی..." />
+    </div>
+    <div class="col-md-2">
+        <input type="text" asp-for="@Model.FilterCodeMelli" name="filtermelli" class="form-control" placeholder="جستجو کد ملی..." />
+    </div>
+    
+    <div class="col-md-3">
+        <input type="text" asp-for="@Model.FilterName" name="filterName" class="form-control" placeholder="جستجو نام فامیلی..." />
+    </div>
+
+    <div class="col-md-2">
+        <select name="take" class="form-control">
+            <option value="@Model.Take">تعداد نمایش</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+</div>
+<hr />
+
+<table id="myTable" class="table table-bordered table-responsive-lg table-hover table-striped dataTable" role="grid">
+    <thead>
+        <tr role="row">
+            <th>کد پرسنلی</th>
+            <th>کد ملی</th>
+            <th>نام نام خانوادگی</th>
+            <th>سمت</th>
+            <th>تاریخ استخدام</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.EmployeeModels)
+        {
+        <tr role="row" class="odd">
+            <td>@item.CodePersonnel</td>
+            <td>@item.CodeMelli</td>
+            <td>@item.Firstname  @item.Lastname</td>
+            <td>@item.place</td>
+            <td>@item.DateOfEmployment</td>
+            <td class="text-center">
+                <a onclick="Show('@item.CodePersonnel')" data-toggle="tooltip" title="مشاهده!" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                <a onclick="Edit('@item.CodePersonnel')" data-toggle="tooltip" title="ویرایش!" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                <a onclick="Delete('@item.CodePersonnel')" data-toggle="tooltip" title="حذف!" class="btn btn-danger"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>

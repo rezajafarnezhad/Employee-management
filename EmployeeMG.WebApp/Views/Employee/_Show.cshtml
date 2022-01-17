@@ -1,0 +1,130 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Employee.CreateEmp
+
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade bd-example-modal-lg" id="EditEmp" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">مشاهده اطلاعات کارمند ( @Model.Firstname  @Model.Lastname )</h5>
+                <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <img src="/Images/@Model.Pic" width="200" height="140" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">کد ملی</label>
+                            <label type="text" class="form-control">@Model.CodeMelli</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">سمت</label>
+                            <label type="text" class="form-control">@Model.place</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">جنسیت</label>
+                            <label type="text" class="form-control">@Model.Sex</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">مدرک</label>
+                            <label type="text" class="form-control">@Model.DegreeEducation</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">وضعیت تاهل</label>
+                            <label type="text" class="form-control">@Model.MaritalStatus</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">نام</label>
+                            <label type="text" class="form-control">@Model.Firstname</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">نام خانوادگی</label>
+                            <label type="text" class="form-control">@Model.Lastname</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group text-right">
+                            <label class="control-label ">نام پدر</label>
+                            <label type="text" class="form-control">@Model.FatherName</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group text-right">
+                            <label class="control-label ">موبایل</label>
+                            <label type="text" class="form-control">@Model.Mobile</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group text-right">
+                            <label class="control-label ">واحد</label>
+                            <label type="text" class="form-control">@Model.UnitName</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group text-right">
+                            <label class="control-label ">آدرس</label>
+                            <label type="text" class="form-control">@Model.address</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group text-right">
+                            <label class="control-label ">تاریخ تولد</label>
+                            <label type="text" class="form-control">@Model.DateOfBirth</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group text-right">
+                            <label class="control-label ">تاریخ استخدام</label>
+                            <label type="text" class="form-control">@Model.DateOfEmployment</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function Close() {
+        $(document).ready(function () {
+            $('#EditEmp').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>
