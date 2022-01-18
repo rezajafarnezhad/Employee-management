@@ -1,0 +1,75 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Food.ListFood
+
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+    <div class="col-md-2">
+        <input type="number" value="null" name="ffc" class="form-control" asp-for="FilterFoodCode" placeholder="کد غذا" />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="ffn" class="form-control" asp-for="FilterFoodName" placeholder="نام غذا" />
+    </div>
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+
+</div>
+<hr />
+
+
+<table id="myTable" class="table table-bordered table-hover table-striped dataTable" role="grid">
+    <thead>
+        <tr role="row">
+            <th>کد غذا</th>
+            <th>نام غذا</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FoodModels)
+        {
+            <tr role="row" class="odd">
+                <td>@item.Code</td>
+                <td>@item.Name</td>
+                <td class="text-center">
+                    <button onclick="Delete('@item.Code')" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>

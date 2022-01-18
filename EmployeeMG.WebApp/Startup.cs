@@ -11,15 +11,19 @@ using System.Threading.Tasks;
 using EmployeeMG.Core.Application.AmountOfSalary;
 using EmployeeMG.Core.Application.BankAccount;
 using EmployeeMG.Core.Application.Company;
+using EmployeeMG.Core.Application.Cost;
 using EmployeeMG.Core.Application.DepositSalary;
+using EmployeeMG.Core.Application.Food;
 using EmployeeMG.Core.Application.Personnel;
 using EmployeeMG.Core.Application.Unit;
 using EmployeeMG.Core.Application.Vacation;
 using EmployeeMG.Core.ApplicationContract.AmountOfSalary;
 using EmployeeMG.Core.ApplicationContract.BankAccount;
 using EmployeeMG.Core.ApplicationContract.Company;
+using EmployeeMG.Core.ApplicationContract.Cost;
 using EmployeeMG.Core.ApplicationContract.DepositSalary;
 using EmployeeMG.Core.ApplicationContract.Employee;
+using EmployeeMG.Core.ApplicationContract.Food;
 using EmployeeMG.Core.ApplicationContract.Unit;
 using EmployeeMG.Core.ApplicationContract.Vacation;
 using EmployeeMG.Core.Core;
@@ -56,6 +60,8 @@ namespace EmployeeMG.WebApp
             services.AddScoped<IVacationApplication,VacationApplication>();
             services.AddScoped<IBankAccountApplication, BankAccountApplication>();
             services.AddScoped<IDepositSalaryApplication,DepositSalaryApplication>();
+            services.AddScoped<ICostApplication, CostApplication>();
+            services.AddScoped<IFoodApplication,FoodApplication>();
             services.AddScoped<IUploadFile,FileUpload>();
             services.AddScoped<ImsgBox,msgBox>();
         }

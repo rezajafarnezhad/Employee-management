@@ -1,0 +1,87 @@
+﻿
+@using System.Globalization
+@model EmployeeMG.Core.ApplicationContract.Cost.ListCost
+
+@{
+    Layout = null;
+}
+
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+    <div class="col-md-3">
+        <input name="fdate" asp-for="FilterDateCost" class="form-control" placeholder="1400/01/01">
+    </div>
+    <div class="col-md-4">
+        <select name="fsort" class="form-control">
+            <option value="@Model.FilterSort">ترتیب نمایش</option>
+            <option value="بیشترین هزینه">بیشترین هزینه</option>
+            <option value="کمترین هزینه">کمترین هزینه</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select name="take" class="form-control">
+            <option value="@Model.Take">تعداد نمایش</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="60">60</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+</div>
+<hr />
+
+<table id="myTable" class="table table-bordered table-responsive-lg table-hover table-striped dataTable" role="grid">
+    <thead>
+        <tr role="row">
+            <th>در تاریخ</th>
+            <th>به منظور</th>
+            <th>به مبلغ (تومان)</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CostModels)
+        {
+            <tr role="row" class="odd">
+                <td>@item.CostDate</td>
+                <td>@item.Forthe</td>
+                <td>@item.Amount.ToString("##,###")</td>
+                <td>
+                    <a href="#" onclick="Edit(@item.Id)" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="Delete(@item.Id)" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>

@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">ثبت هزینه جدید</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <!-- text input -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>بابت</label>
+                    <input type="text" id="forthe" name="forthe" class="form-control" placeholder="وارد کنید">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>در تاریخ</label>
+                    <input id="CostDate" name="CostDate" class="form-control persianDateInput">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>به مبلغ (تومان)</label>
+                    <input type="number" value="0" id="Amount" name="Amount" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp; &nbsp;</label>
+                <a class="btn btn-success form-control" href="#" onclick="send()"><i class="fa fa-plus-square"></i>  ثبت  </a>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+
+  
+
+    function send() {
+        SendData('/Cost/Create', { forthe: $("#forthe").val(), CostDate: $("#CostDate").val(), Amount: $("#Amount").val() });
+    }
+</script>
