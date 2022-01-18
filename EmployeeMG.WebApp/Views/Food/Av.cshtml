@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="card card-dark">
+    <div class="card-header">
+        <h3 class="card-title">میانگین سه عدد</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <!-- text input -->
+        <div class="form-group">
+            <label>عدد اول</label>
+            <input type="number" id="number1" class="form-control" placeholder="وارد کنید">
+        </div>
+        <div class="form-group">
+            <label>عدد دوم</label>
+            <input type="number" id="number2" class="form-control" placeholder="وارد کنید">
+        </div>
+        <div class="form-group">
+            <label>عدد سوم</label>
+            <input type="number" id="number3" class="form-control" placeholder="وارد کنید">
+        </div>
+        <div class="form-group">
+            <label>نتیجه</label>
+            <label id="resul" class="form-control">0</label>
+        </div>
+
+        <button type="button" onclick="send()" class="btn btn-success">محاسبه میانگین</button>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+
+    function send() {
+        SendData('/Food/Av', { number1: $("#number1").val(), number2: $("#number2").val(), number3: $("#number3").val() }, function (res) {
+            $('#resul').text(res);
+        });
+    }
+</script>

@@ -19,7 +19,7 @@ namespace EmployeeMG.WebApp.Controllers
             _msgBox = msgBox;
         }
 
-        public async Task<IActionResult> Index(int pageId =1, int take=10 , int ffc=0,string ffn="")
+        public async Task<IActionResult> Index(int pageId = 1, int take = 10, int ffc = 0, string ffn = "")
         {
 
             var _foods = await _foodApplication.GetAll(pageId, take, ffc, ffn);
@@ -30,7 +30,7 @@ namespace EmployeeMG.WebApp.Controllers
         public async Task<IActionResult> Search(int pageId, int take, int ffc, string ffn)
         {
 
-            var _foods = await _foodApplication.GetAll(pageId, take=10, ffc, ffn);
+            var _foods = await _foodApplication.GetAll(pageId, take = 10, ffc, ffn);
             return View("_food", _foods);
         }
 
@@ -67,6 +67,21 @@ namespace EmployeeMG.WebApp.Controllers
                 return _msgBox.FaildMsg(result.Message);
 
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Av(int number1, int number2, int number3)
+        {
+            List<int> listnum = new List<int>()
+            {
+                number1,
+                 number2,
+                 number3
+            };
+
+            var avreage = Convert.ToInt32(listnum.Average());
+            var m = avreage;
+            return new JsResult(m.ToString());
         }
     }
 }
