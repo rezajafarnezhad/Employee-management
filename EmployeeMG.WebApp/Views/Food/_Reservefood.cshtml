@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<div class="modal fade" id="ReservefoodModal" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <form id="FrmCreate" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">رزرو غذا</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">کد پرسنلی</label>
+                                <input type="number" id="CodeP" name="CodeP" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="send()" class="btn btn-primary">رزرو</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    function send() {
+        SendData('/Food/Reservefood/', { CodeP: $("#CodeP").val(),ID:@ViewBag.ID }, function (res) {
+        });
+    }
+
+    function Close() {
+        $(document).ready(function () {
+            $('#ReservefoodModal').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>

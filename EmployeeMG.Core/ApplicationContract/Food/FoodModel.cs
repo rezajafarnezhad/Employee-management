@@ -17,14 +17,16 @@ namespace EmployeeMG.Core.ApplicationContract.Food
         Task<OperationResult> CreateNUTCard(int codePersonnley, int Balabce);
         Task<NUTritionCardModel> GeForbalanceAdd(int ID);
         Task<OperationResult> balanceAdd(NUTritionCardModel nuTritionCardModel);
-        Task<OperationResult> DeleteNUTritionCard(int ID);
-        Task<ListFoodOffered> GetAllFoodOffered(int pageId, int take, string FilterDateOffered);
+        Task<OperationResult> DeleteNUTritionCard(int ID); 
+        Task<ListFoodOffered> GetAllFoodOffered(int pageId, int take, string FilterDateOffered, string FilterMeal);
         Task<OperationResult> CreateOffered(FoodOfferedModel foodOfferedModel);
         Task<FoodOfferedModel> GetForEditFoodOffered(int ID);
         Task<List<FoodModel>> GetForCreateOffered();
         Task<string> ShowDay(string date);
         Task<OperationResult> Edit(FoodOfferedModel foodOfferedModel);
         Task<OperationResult> DeleteFoodOffered(int ID);
+        Task<OperationResult> Reservefood(int Codep, int ID);
+        Task<List<int>> ReservationFoodEmployeeShow(int ID);
     }
 
     public class FoodModel
@@ -71,5 +73,7 @@ namespace EmployeeMG.Core.ApplicationContract.Food
     {
         public List<FoodOfferedModel> FoodOfferedModels { get; set; }
         public string FilterDateOffered { get; set; }
+        public string FilterMeal { get; set; }
     }
+
 }

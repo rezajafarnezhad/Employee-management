@@ -94,6 +94,27 @@
                     $('#foodOfferedModal').modal();
                 });
         }
+        
+
+        function Reservefood(_ID) {
+
+            LoadComponenet("/Food/Reservefood/",
+                { ID: _ID },
+                function (res) {
+                    $('body').append(res);
+                    $('#ReservefoodModal').modal();
+                });
+        } 
+
+        function ReservefoodEmp(_ID) {
+
+            LoadComponenet("/Food/ReservefoodEmp/",
+                { ID: _ID },
+                function (res) {
+                    $('body').append(res);
+                    $('#ReservefoodEmpModal').modal();
+                });
+        }
 
         function Edit(_ID) {
 

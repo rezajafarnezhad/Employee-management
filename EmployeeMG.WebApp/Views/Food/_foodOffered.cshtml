@@ -13,6 +13,14 @@
     <div class="col-md-2">
         <input asp-for="FilterDateOffered" autocomplete="off" name="fd" class="form-control persianDateInput" placeholder="جستجوی تاریخ ارائه">
     </div>
+    <div class="col-md-3">
+        <select asp-for="FilterMeal" name="fm" class="form-control">
+            <option value="">انتخاب وعده</option>
+            <option value="صبحانه">صبحانه</option>
+            <option value="ناهار">ناهار</option>
+            <option value="شام">شام</option>
+        </select>
+    </div>
     <div class="col-md-2">
         <input type="submit" class="btn btn-info form-control" value="فیلتر" />
     </div>
@@ -42,6 +50,8 @@
                 <td class="text-center">
                     <button onclick="Edit('@item.ID')" type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                     <button onclick="Delete('@item.ID')" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button onclick="Reservefood('@item.ID')" type="button" class="btn btn-success"><i class="fa fa-check-square-o"></i>  رزرو غذا</button>
+                    <button onclick="ReservefoodEmp('@item.ID')" type="button" class="btn btn-secondary"><i class="fa fa-users"></i>  مشاهده کارمندانی که رزرو کردن</button>
                 </td>
             </tr>
         }

@@ -240,7 +240,7 @@ namespace EmployeeMG.Core.Application.Food
 
         }
 
-        public async Task<ListFoodOffered> GetAllFoodOffered(int pageId, int take, string FilterDateOffered)
+        public async Task<ListFoodOffered> GetAllFoodOffered(int pageId, int take, string FilterDateOffered,string FilterMeal)
         {
             try
             {
@@ -263,6 +263,9 @@ namespace EmployeeMG.Core.Application.Food
                     result = result.Where(c => c.DateOffered == FilDate);
                 }
 
+                if (!string.IsNullOrWhiteSpace(FilterMeal))
+                    result = result.Where(c => c.Meal.Contains(FilterMeal));
+
                 var skip = (pageId - 1) * take;
 
                 var model = new ListFoodOffered()
@@ -280,6 +283,8 @@ namespace EmployeeMG.Core.Application.Food
                 return null;
             }
         }
+
+
 
         public async Task<string> ShowDay(string date)
         {
@@ -423,6 +428,51 @@ namespace EmployeeMG.Core.Application.Food
             }
         }
 
+        public async Task<OperationResult> Reservefood(int Codep, int ID)
+        {
+            OperationResult operationResult = new OperationResult();
 
+            try
+            {
+                if (!await _applicationContext.Employee.AnyAsync(c => c.PersonnelCode == Codep))
+                    return operationResult.Failed("کد پرسنلی اشتباه است");
+
+                if(await _applicationContext.NUTritionCard.AnyAsync(c=>c.PersonnelCode == Codep && c.Balance < 20000))
+                    return operationResult.Failed("موجودی کارت تغذیه کمتر از 20,000 تومان است");
+                
+                Random r =new Random();
+                var ReservationFood = new TReservationFood()
+                {
+                    Id = r.Next(111111,999999),
+                    OfferedCode = ID,
+                    PersonnelCode = Codep
+                };
+
+                if (await _applicationContext.ReservationFood.AnyAsync(c =>
+                    c.OfferedCode == ReservationFood.OfferedCode && c.PersonnelCode == ReservationFood.PersonnelCode))
+                    return operationResult.Failed("این وعده برای این کارمند قبلا رزرو شده است");
+
+                await _applicationContext.ReservationFood.AddAsync(ReservationFood);
+
+                var _TNUCard = await _applicationContext.NUTritionCard.Where(c=>c.PersonnelCode == ReservationFood.PersonnelCode).SingleOrDefaultAsync();
+                _TNUCard.Balance -= 20000;
+                _applicationContext.Update(_TNUCard);
+
+                await _applicationContext.SaveChangesAsync();
+                return operationResult.Succeeded("این وعده برای کارمند رزرو شد");
+            }
+            catch (Exception)
+            {
+                return operationResult.Failed();
+            }
+        }
+
+        public async Task<List<int>> ReservationFoodEmployeeShow(int ID)
+        {
+            var _data = await _applicationContext.ReservationFood.Where(c => c.OfferedCode == ID)
+                .Select(c => c.PersonnelCode).ToListAsync();
+
+            return _data;
+        }
     }
 }

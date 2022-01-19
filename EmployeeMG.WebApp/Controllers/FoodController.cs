@@ -159,16 +159,16 @@ namespace EmployeeMG.WebApp.Controllers
         }
 
 
-        public async Task<IActionResult> GetAllFoodOffered(int PageId=1, int take =10, string fd="")
+        public async Task<IActionResult> GetAllFoodOffered(int PageId=1, int take =10, string fd="",string fm="")
         {
-            var _foodOffered = await _foodApplication.GetAllFoodOffered(PageId, take, fd);
+            var _foodOffered = await _foodApplication.GetAllFoodOffered(PageId, take, fd,fm);
             return View("IndexFoodOffered", _foodOffered);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SearchFoodOffered(int PageId, int take, string fd)
+        public async Task<IActionResult> SearchFoodOffered(int PageId, int take, string fd,string fm)
         {
-            var _foodOffered = await _foodApplication.GetAllFoodOffered(PageId, take=10, fd);
+            var _foodOffered = await _foodApplication.GetAllFoodOffered(PageId, take=10, fd , fm);
             return View("_foodOffered", _foodOffered);
         }
 
@@ -246,6 +246,37 @@ namespace EmployeeMG.WebApp.Controllers
                 return _msgBox.FaildMsg(result.Message);
 
             }
+        }
+
+        public async Task<IActionResult> Reservefood(int ID)
+        {
+            ViewBag.ID = ID;
+            return View("_Reservefood");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Reservefood(int CodeP, int ID)
+        {
+            if (CodeP == 0)
+                return _msgBox.FaildMsg("کد پرسنلی اشتباه است");
+
+            var result = await _foodApplication.Reservefood(CodeP,ID);
+
+            if (result.isSucceeded)
+            {
+                return _msgBox.SuccessMsg(result.Message, "RefreshTable()");
+            }
+            else
+            {
+                return _msgBox.FaildMsg(result.Message);
+
+            }
+        }
+
+        public async Task<IActionResult> ReservefoodEmp(int ID)
+        {
+            var _Res = await _foodApplication.ReservationFoodEmployeeShow(ID);
+            return View("_ReservefoodEmp",_Res);
         }
     }
 }
