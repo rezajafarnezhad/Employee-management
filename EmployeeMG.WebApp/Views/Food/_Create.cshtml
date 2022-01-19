@@ -14,13 +14,13 @@
                 <label>نام غذا</label>
                 <input type="text" id="Name" name="Name" class="form-control" placeholder="وارد کنید">
             </div>
-        <button type="button" onclick="send()" class="btn btn-success">ثبت غذا</button>
+        <button type="button" onclick="sendfood()" class="btn btn-success">ثبت غذا</button>
     </div>
     <!-- /.card-body -->
 </div>
 
 <script>
-    function send() {
+    function sendfood() {
         SendData('/Food/Create', { Name: $("#Name").val()});
     }
 </script>

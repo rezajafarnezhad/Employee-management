@@ -1,0 +1,95 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Food.FoodOfferedModel
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="modal fade" id="EditfoodOfferedModal" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <form id="FrmCreate" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ویرایش  وعده @Model.Meal در تاریخ @Model.DateOffered</h5>
+                    <button type="button" onclick="Close()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" onmouseover="send()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">تاریخ ارائه غذا</label>
+                                <input asp-for="DateOffered" autocomplete="off" class="form-control persianDateInput din">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">روز</label>
+                                <input type="hidden" asp-for="ID" />
+                                <input type="text" asp-for="Day" readonly="readonly" class="form-control fDay" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">وعده</label>
+                                <select asp-for="Meal" class="form-control">
+                                    <option value="">انتخاب وعده</option>
+                                    <option value="صبحانه">صبحانه</option>
+                                    <option value="ناهار">ناهار</option>
+                                    <option value="شام">شام</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right">
+                                <label class="control-label ">غذا</label>
+                                <select asp-for="FoodName" asp-items="@ViewBag.ListFoods" class="form-control">
+                                    <option value="">انتخاب غذا</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SendForm('/Food/EditFoodOffered','FrmCreate')" class="btn btn-primary">ویرایش</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/Admin/dist/js/persian-date.min.js"></script>
+<script src="~/Admin/dist/js/persian-datepicker.min.js"></script>
+
+<script>
+
+    $('.persianDateInput').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+
+    });
+
+    function send() {
+        SendData('/Food/ShowDay/', { foodOfferedDate: $(".din").val() }, function (res) {
+            $('.fDay').val(res);
+        });
+    }
+
+    function Close() {
+        $(document).ready(function () {
+            $('#EditfoodOfferedModal').remove();
+            $('.modal-backdrop').remove();
+        });
+    }
+
+</script>

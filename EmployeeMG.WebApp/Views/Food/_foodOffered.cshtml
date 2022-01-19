@@ -1,0 +1,93 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Food.ListFoodOffered
+
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+    <div class="col-md-2">
+        <input asp-for="FilterDateOffered" autocomplete="off" name="fd" class="form-control persianDateInput" placeholder="جستجوی تاریخ ارائه">
+    </div>
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+
+</div>
+<hr />
+
+
+<table id="myTable" class="table table-bordered table-hover table-striped dataTable" role="grid">
+    <thead>
+        <tr role="row">
+            <th>تاریخ ارائه</th>
+            <th>روز هفته</th>
+            <th>وعده</th>
+            <th>غذا</th>
+            <th class="text-center">عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FoodOfferedModels)
+        {
+            <tr role="row" class="odd">
+                <td>@item.DateOffered</td>
+                <td>@item.Day</td>
+                <td>@item.Meal</td>
+                <td>@item.FoodName</td>
+                <td class="text-center">
+                    <button onclick="Edit('@item.ID')" type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                    <button onclick="Delete('@item.ID')" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>
+
+
+
+
+
+<script src="~/Admin/dist/js/persian-date.min.js"></script>
+<script src="~/Admin/dist/js/persian-datepicker.min.js"></script>
+
+<script>
+
+    $('.persianDateInput').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+        initialValue: false
+    });
+</script>

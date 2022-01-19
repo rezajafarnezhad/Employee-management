@@ -1,0 +1,41 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">ثبت کارت  تغذیه جدید</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <!-- text input -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>کد پرسنلی</label>
+                    <input type="number" value="0" id="codePersonnley" name="codePersonnley" class="form-control" placeholder="وارد کنید">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>موجودی  (تومان)</label>
+                    <input type="number" value="0" id="Balabce" name="Balabce" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp; &nbsp;</label>
+                <a class="btn btn-success form-control" href="#" onclick="send()"><i class="fa fa-plus-square"></i>  ثبت  </a>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<script>
+
+    function send() {
+        SendData('/Food/CreateNUT', { codePersonnley: $("#codePersonnley").val(), Balabce: $("#Balabce").val()});
+    }
+</script>
