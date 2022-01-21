@@ -1,0 +1,72 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Goods.ListGoods
+
+@{
+    Layout = "_Layout";
+    ViewData["Tit"] = "مدیریت کالا ها";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <partial name="_Create" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده کالا ها</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="mform" action="/Goods/Search" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_Goods" model="@Model" />
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js
+{
+    <script>
+
+
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#mform").submit();
+        }
+        function RefreshTable() {
+            $("#myTable").load("/Goods/Index #myTable");
+            Close();
+        }
+
+        function Edit(_ID) {
+
+            LoadComponenet("/Goods/Edit/",
+                { ID: _ID },
+                function (res) {
+                    $('body').append(res);
+                    $('#EditModal').modal();
+                });
+
+        }
+
+        function Delete(_ID) {
+
+            RemoveData("/Goods/Delete/", { ID: _ID });
+        }
+
+    </script>
+}

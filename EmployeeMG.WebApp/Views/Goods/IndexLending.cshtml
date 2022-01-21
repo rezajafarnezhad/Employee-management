@@ -1,0 +1,72 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Goods.ListLandingGoods
+
+@{
+    Layout = "_Layout";
+    ViewData["Tit"] = "مدیریت کالا های تحویلی به کارمندان";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <partial name="_CreateLendingGoods" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2 text-bold">مشاهده کالا های تحویلی به کارمندان</h5>
+                        <div id="example2_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="mform" action="/Goods/SearchLendingGoods" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#Content">
+                                        <div id="Content">
+                                            <partial name="_GoodsLenging" model="@Model" />
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js
+{
+    <script>
+
+
+        function sendPage(pagenum) {
+            $("#pageid").val(pagenum);
+            $("#mform").submit();
+        }
+        function RefreshTable() {
+            $("#myTable").load("/Goods/GetAllLengingGoods #myTable");
+            Close();
+        }
+
+        function EditLendingGoods(_ID) {
+
+            LoadComponenet("/Goods/EditLending/",
+                { ID: _ID },
+                function (res) {
+                    $('body').append(res);
+                    $('#EditModal').modal();
+                });
+
+        }
+
+        function Delete(_ID) {
+
+            RemoveData("/Goods/DeleteLending/", { ID: _ID });
+        }
+
+    </script>
+}

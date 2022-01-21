@@ -1,0 +1,75 @@
+﻿
+@model EmployeeMG.Core.ApplicationContract.Goods.ListGoods
+
+@{
+    Layout = null;
+}
+
+
+<div class="row">
+    <input type="hidden" id="pageid" name="PageId" value="@Model.PageId" />
+    <div class="col-md-3">
+        <input name="fc" asp-for="FilterCode" class="form-control" placeholder="جستجو کد">
+    </div>
+    <div class="col-md-3">
+        <input name="fn" asp-for="FilterName" class="form-control" placeholder="جستجو نام">
+    </div>
+
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-info form-control" value="فیلتر" />
+    </div>
+</div>
+<hr />
+
+<div class="col-md-12">
+    <table id="myTable" class="table table-bordered table-responsive-lg table-responsive-sm table-responsive-xl table-hover table-striped dataTable" role="grid">
+        <thead>
+        <tr role="row">
+            <th>کد کالا</th>
+            <th>نام کالا</th>
+            <th>تعداد</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.GoodsModels)
+        {
+            <tr role="row" class="odd">
+                <td>@item.Code</td>
+                <td>@item.Name</td>
+                <td>@item.Count</td>
+                <td>
+                    <a href="#" onclick="Edit(@item.Code)" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                    <a href="#" onclick="Delete(@item.Code)" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+        }
+
+
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12 text-center">
+
+    @if (Model.PageId > 1)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId-1))">
+            قبلی
+        </a>
+    }
+
+    @for (int page = Model.StartPage; page <= Model.EndPage; page++)
+    {
+        <a class="btn @((page==Model.PageId)?"btn-success border-primary" :"border-primary") " style="cursor: pointer" onclick="sendPage(@(page))">
+            @(page)
+        </a>
+    }
+    @if (Model.PageId < Model.PageCount)
+    {
+        <a class="btn border-primary" style="cursor: pointer" onclick="sendPage(@(Model.PageId+1))">
+            بعدی
+        </a>
+    }
+
+</div>
